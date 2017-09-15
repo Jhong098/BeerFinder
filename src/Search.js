@@ -5,7 +5,7 @@ class Search extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {value: '', submitted: false, products: [], beers: []};
+		this.state = {beerFound: false, value: '', submitted: false, products: [], beers: []};
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,8 +29,7 @@ class Search extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault();
 		console.log("submitted");
-		this.setState({submitted: true});
-		
+		this.setState({beerFound: this.checkBeer(), submitted: true});
 	}
 
 	getProducts() {
@@ -54,10 +53,23 @@ class Search extends React.Component {
 		});
 
 		this.setState({beers});
-
-
-
 		// console.log(beers);
+	}
+
+	checkBeer() {
+		let target = this.state.value;
+
+		this.state.beers.map(function(beer) {
+			if(beer.name.toLowerCase() === target.toLowerCase()) {
+				console.log(beer);
+				return true;
+			} 
+		});
+
+		if(this.state.submitted && !this.state.beerFound) {
+			console.log('not found');
+			return false;
+		}
 	}
 
 
@@ -67,7 +79,7 @@ class Search extends React.Component {
 				<form onSubmit={this.handleSubmit}>
 					Enter the Beer:
 					<input type="text" value={this.state.value} onChange={this.handleChange} />
-					<input type="submit" value="submit" />
+					<input type="submit" value="submit" onSubmit={this.handleSubmit} />
 				</form>
 			</div>
 
