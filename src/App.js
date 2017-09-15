@@ -3,27 +3,32 @@ import logo from './logo.svg';
 import './App.css';
 import 'whatwg-fetch';
 import Search from './Search.js';
+import NotFound from './NotFound.js';
+import Results from './Results.js';
 
-
-const KEY = 'MDoxMTNlYjhmYS05YTJlLTExZTctYTViYy1kN2Q5YzAyNGY3NGQ6RGdWcG8yVVpROFltd2QwUXBISzNJSmJpekZnY0FMNEYzYVM2';
-const url = 'https://lcboapi.com/';
+var ReactRouter = require('react-router-dom');
+var Router = ReactRouter.BrowserRouter;
+var Route = ReactRouter.Route;
+var Switch = ReactRouter.Switch;
 
 
 
 export default class App extends React.Component {
 
-  constructor(props) {
-    super(props)
-  }
-  // getProducts() {
-  //     fetch(url + 'products?access_key=' + KEY)
-  //     .then(response => console.log(response.json()))
-  //     .catch(error => console.log('Error', error));
-  // }
-
-
   render() {
-    return <Search />
+
+    return(
+      <Router>
+        <div>
+          <Switch>
+            <Route exact path='/' component={Search} />
+            <Route path='/notfound' component={NotFound} />
+            <Route path='/results' component={Results} />
+          </Switch>
+        </div>
+      </Router>
+      )
+    
 
   }
 }
