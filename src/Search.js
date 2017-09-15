@@ -1,14 +1,11 @@
 import React from 'react';
-import { getProducts } from './api.js';
-
-
 
 class Search extends React.Component {
 
 
 	constructor(props) {
 		super(props);
-		this.state = {value: '', submitted: false, products: [3, 5]};
+		this.state = {value: '', submitted: false, products: [], beers: []};
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -16,7 +13,12 @@ class Search extends React.Component {
 	}
 
 	componentWillMount() {
-		this.setState({products: getProducts()});
+		this.getProducts();
+		
+	}
+
+	componentDidMount() {
+		
 	}
 
 	handleChange(event) {
@@ -28,13 +30,34 @@ class Search extends React.Component {
 		event.preventDefault();
 		console.log("submitted");
 		this.setState({submitted: true});
-		getProducts();
+		
 	}
 
-	filterProducts() {
-		let tags = this.props.products.map(function(product) {
-			return product.tags;
+	getProducts() {
+		const KEY = 'MDoxMTNlYjhmYS05YTJlLTExZTctYTViYy1kN2Q5YzAyNGY3NGQ6RGdWcG8yVVpROFltd2QwUXBISzNJSmJpekZnY0FMNEYzYVM2';
+		const url = 'https://lcboapi.com/';
+	 
+		fetch(url + 'products?per_page=100&access_key=' + KEY)
+				.then(resp => resp.json())
+				.then(resp => {this.setState({products: resp.result});})
+				.then(() => this.filterProducts())
+				.catch(error => console.log('Error', error));
+
+		
+	}
+
+	filterProducts() {		
+		let beers = this.state.products.filter(function(product) {
+			if(product.tags.includes('beer')){
+				return product;
+			}
 		});
+
+		this.setState({beers});
+
+
+
+		// console.log(beers);
 	}
 
 
