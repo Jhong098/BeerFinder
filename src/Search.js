@@ -4,6 +4,7 @@ import Api from './api.js';
 
 import NotFound from './NotFound.js';
 import Results from './Results.js';
+import Beers from './Beers.js';
 
 
 
@@ -26,9 +27,12 @@ class Search extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		console.log("submitted");
-		this.setState({beerFound: this.checkBeer(), submitted: true});
-
+		if(this.state.value != '') {
+			
+			this.setState({beerFound: this.checkBeer(), submitted: true});
+			// console.log(beerFound);
+		}
+		
 	}
 
 	onApiChange(newData) {
@@ -50,31 +54,50 @@ class Search extends React.Component {
 
 	checkBeer() {
 		let target = this.state.value;
+		let found = false;
 
 		this.state.beers.map(function(beer) {
 			if(beer.name.toLowerCase() === target.toLowerCase()) {
 				console.log(beer);
-				return true;
+				found = true;
 			} 
 		});
 
 		if(this.state.submitted && !this.state.beerFound) {
 			console.log('not found');
-			return false;
+			found = false;
 		}
+
+		console.log(found);
+
+		return found;
 	}
 
 
 
 	render() {
 		return (
-			<div >				
+			<div >	
+				<h1>BEER FINDER</h1>			
 				<Api ref="api" apiCallBack={(newData) => this.onApiChange(newData)}/>
-				<form className="search" onSubmit={this.handleSubmit}>
-					<h1>Enter the Beer:</h1>
-					<input type="text" id="type" value={this.state.value} onChange={this.handleChange} />		
-					<input className='button' type="submit" value="Find" onSubmit={this.handleSubmit}/>
-				</form>
+
+				{!this.state.submitted && !this.state.beerFound && 
+					<form className="search" onSubmit={this.handleSubmit}>
+						<h2>Enter the Beer:</h2>
+						<input type="text" id="type" value={this.state.value} onChange={this.handleChange} />		
+						<input className='button' type="submit" value="Find" onSubmit={this.handleSubmit}/>
+					</form>
+				}
+
+				{this.state.submitted && this.state.beerFound && 
+					<div>
+						<Beers results={this.state.beers}/>
+					</div>
+				}
+
+				{this.state.submitted && !this.state.beerFound &&
+					<NotFound />
+				}
 			</div>
 
 			)
