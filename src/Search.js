@@ -1,4 +1,11 @@
 import React from 'react';
+// import { Router, Link, Route, Switch } from 'react-router-dom';
+import Api from './api.js';
+
+import NotFound from './NotFound.js';
+import Results from './Results.js';
+
+
 
 class Search extends React.Component {
 
@@ -12,15 +19,6 @@ class Search extends React.Component {
 
 	}
 
-	componentWillMount() {
-		this.getProducts();
-		
-	}
-
-	componentDidMount() {
-		
-	}
-
 	handleChange(event) {
 		this.setState({value : event.target.value});
 	}
@@ -30,19 +28,13 @@ class Search extends React.Component {
 		event.preventDefault();
 		console.log("submitted");
 		this.setState({beerFound: this.checkBeer(), submitted: true});
+
 	}
 
-	getProducts() {
-		const KEY = 'MDoxMTNlYjhmYS05YTJlLTExZTctYTViYy1kN2Q5YzAyNGY3NGQ6RGdWcG8yVVpROFltd2QwUXBISzNJSmJpekZnY0FMNEYzYVM2';
-		const url = 'https://lcboapi.com/';
-	 
-		fetch(url + 'products?per_page=100&access_key=' + KEY)
-				.then(resp => resp.json())
-				.then(resp => {this.setState({products: resp.result});})
-				.then(() => this.filterProducts())
-				.catch(error => console.log('Error', error));
-
-		
+	onApiChange(newData) {
+		// console.log(newData);
+		this.setState({products: newData});
+		this.filterProducts();
 	}
 
 	filterProducts() {		
@@ -73,13 +65,15 @@ class Search extends React.Component {
 	}
 
 
+
 	render() {
 		return (
-			<div>
-				<form onSubmit={this.handleSubmit}>
-					Enter the Beer:
-					<input type="text" value={this.state.value} onChange={this.handleChange} />
-					<input type="submit" value="submit" onSubmit={this.handleSubmit} />
+			<div >				
+				<Api ref="api" apiCallBack={(newData) => this.onApiChange(newData)}/>
+				<form className="search" onSubmit={this.handleSubmit}>
+					<h1>Enter the Beer:</h1>
+					<input type="text" id="type" value={this.state.value} onChange={this.handleChange} />		
+					<input className='button' type="submit" value="Find" onSubmit={this.handleSubmit}/>
 				</form>
 			</div>
 

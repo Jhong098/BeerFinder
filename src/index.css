@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower|Roboto:400,500,700');
+
+.search {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	align-items: center;
+}
+
+h1 {
+	font-family: 'Indie Flower', cursive;
+	font-size: 50pt;
+}
+
+.search input {
+	width: 60%;
+	margin: 20px;
+}
+
+.button {
+	background-color: #110e03;
+	color: #ffffff;
+	font-size: 16pt;
+	font-family: 'Indie Flower', cursive;
+	border-radius: 15px;
+}
+
+#type {
+	height: 28px;
+	border-width: 0 0 2px 0;
+	border-color: #110e03;
+
+}
+
+input[type="text"] {
+	font-size: 27pt;
+}
+
+#type:focus {
+	outline: none;
+	border-width: 0 0 3px 0;
+	border-color: #db9200;
+	caret-color:#db9200;
+	height: 30px;
+}
+
+.button:hover {
+	color: #dddddd;
+	background-color: #606060;
+}
