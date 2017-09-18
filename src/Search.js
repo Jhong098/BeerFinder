@@ -13,10 +13,18 @@ class Search extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {beerFound: false, value: '', submitted: false, products: [], beers: []};
+		this.state = {
+			beerFound: false, 
+			value: '', 
+			submitted: false, 
+			products: [], 
+			beers: [],
+			beerResults: []
+		};
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleReset = this.handleReset.bind(this);
 
 	}
 
@@ -30,7 +38,7 @@ class Search extends React.Component {
 		if(this.state.value != '') {
 			
 			this.setState({beerFound: this.checkBeer(), submitted: true});
-			// console.log(beerFound);
+
 		}
 		
 	}
@@ -55,49 +63,58 @@ class Search extends React.Component {
 	checkBeer() {
 		let target = this.state.value;
 		let found = false;
+		let results = [];
 
 		this.state.beers.map(function(beer) {
-			if(beer.name.toLowerCase() === target.toLowerCase()) {
-				console.log(beer);
+			if(target.length >= 3 && beer.name.toLowerCase().includes(target.toLowerCase())) {
+				results.push(beer);
 				found = true;
 			} 
 		});
 
+		this.setState({beerResults: results});
+
 		if(this.state.submitted && !this.state.beerFound) {
-			console.log('not found');
+			// console.log('not found');
 			found = false;
 		}
 
-		console.log(found);
+		// console.log(found);
 
 		return found;
 	}
 
-
+	handleReset() {
+		this.setState({submitted: false, beerFound: false, value: ''});
+	}
 
 	render() {
 		return (
-			<div >	
-				<h1>BEER FINDER</h1>			
-				<Api ref="api" apiCallBack={(newData) => this.onApiChange(newData)}/>
+			<div >		
 
 				{!this.state.submitted && !this.state.beerFound && 
 					<form className="search" onSubmit={this.handleSubmit}>
-						<h2>Enter the Beer:</h2>
+						<h1>Search for the Beer:</h1>
 						<input type="text" id="type" value={this.state.value} onChange={this.handleChange} />		
 						<input className='button' type="submit" value="Find" onSubmit={this.handleSubmit}/>
+						<Api ref="api" apiCallBack={(newData) => this.onApiChange(newData)}/>
 					</form>
 				}
 
 				{this.state.submitted && this.state.beerFound && 
 					<div>
-						<Beers results={this.state.beers}/>
+						<Beers search={this.state.value} results={this.state.beerResults}/>
+						<button className="reset" onClick={this.handleReset}>Reset</button>
 					</div>
 				}
 
 				{this.state.submitted && !this.state.beerFound &&
-					<NotFound />
+					<div>
+						<NotFound search={this.state.value} />
+						<button className="reset" onClick={this.handleReset}>Reset</button>
+					</div>
 				}
+
 			</div>
 
 			)

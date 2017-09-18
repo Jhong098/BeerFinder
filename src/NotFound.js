@@ -1,18 +1,12 @@
 import React from 'react';
 
 export default class NotFound extends React.Component {
-
 	render() {
 		return(
 			<div>
-				<p>404</p>
-
+				<h1>"{this.props.search}" could not be found! Try again.</h1>
 			</div>
-
-
-			)
+		)
 	}
-
-
 
 }

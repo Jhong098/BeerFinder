@@ -49,3 +49,41 @@ input[type="text"] {
 	color: #dddddd;
 	background-color: #606060;
 }
+
+.reset {
+	margin: 0 auto;
+	width:100px;
+	height: 40px;
+	border-radius: 10px;
+	font-family: 'Indie Flower', cursive;
+	font-size: 16pt;
+}
+
+ul {
+	padding: 0;
+}
+
+li {
+	list-style-type: none;
+}
+
+.beer-list{
+	
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+.beer-info {
+	list-style: none;
+}
+
+.beer-item {
+	margin:20px;
+	text-align: center;
+	
+}
+
+.beer-img {
+	width: 150px;
+}
