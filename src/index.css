@@ -1,85 +1,83 @@
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower|Roboto:400,500,700');
 
 .search {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
 }
 
 h1 {
-	font-family: 'Indie Flower', cursive;
-	font-size: 50pt;
+  font-family: 'Indie Flower', cursive;
+  font-size: 50pt;
 }
 
 .search .input-line {
-	width: 60%;
-	margin: 20px;
+  width: 60%;
+  margin: 20px;
 }
 
 .button {
-	background-color: #110e03;
-	color: #ffffff;
-	font-size: 16pt;
-	font-family: 'Indie Flower', cursive;
-	border-radius: 15px;
+  background-color: #110e03;
+  color: #ffffff;
+  font-size: 16pt;
+  font-family: 'Indie Flower', cursive;
+  border-radius: 15px;
 }
 
 .button:hover {
-	color: #dddddd;
-	background-color: #606060;
+  color: #dddddd;
+  background-color: #606060;
 }
 
 .reset {
-	margin: 0 auto;
-	width:100px;
-	height: 40px;
-	border-radius: 10px;
-	font-family: 'Indie Flower', cursive;
-	font-size: 16pt;
+  margin: 0 auto;
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  font-family: 'Indie Flower', cursive;
+  font-size: 16pt;
 }
 
 ul {
-	padding: 0;
+  padding: 0;
 }
 
 li {
-	list-style-type: none;
+  list-style-type: none;
 }
 
-.beer-list{
-	
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
+.beer-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .beer-info {
-	list-style: none;
+  list-style: none;
 }
 
 .beer-item {
-	margin:20px;
-	text-align: center;
-	
+  margin: 20px;
+  text-align: center;
 }
 
 .beer-img {
-	width: 150px;
+  width: 150px;
 }
 
 .mdl-card__title-text {
-	align-self: ;
+  align-self: ;
 }
 
 .mdl-button--raised.mdl-button--colored {
-	text-align: center;
-	margin:  0 auto;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .button-center {
-	margin: 50px;
-	text-align: center;
+  margin: 50px;
+  text-align: center;
 }
 
 .h1-center {
@@ -90,3 +88,4 @@ li {
 	display: flex;
 	justify-content: center;
 }
+
