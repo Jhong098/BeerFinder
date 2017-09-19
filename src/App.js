@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 import Search from './Search.js';
 
-
-
 export default class App extends React.Component {
-
   render() {
-
-    return(
+    return (
       <div>
         <Search />
       </div>
-      )
-    
-
+    );
   }
 }
-
-
