@@ -12,17 +12,27 @@ export default class Api extends React.Component {
 	}
 
 	componentWillMount() {
-		this.getResponse();
+		for(var i = 1; i <= 2; i++) {
+			this.getResponse(i);
+		}
+		
 	}
 
-	getResponse() {
+	getResponse(page) {
 
 		const KEY = 'MDoxMTNlYjhmYS05YTJlLTExZTctYTViYy1kN2Q5YzAyNGY3NGQ6RGdWcG8yVVpROFltd2QwUXBISzNJSmJpekZnY0FMNEYzYVM2';
 		const url = 'https://lcboapi.com/';
 	 
-		fetch(url + 'products?per_page=100&access_key=' + KEY)
+		fetch(url + 'products?page=' + page + '&per_page=100&where_not=is_dead&access_key=' + KEY)
 				.then(resp => resp.json())
-				.then(resp => {this.setState({response: resp.result}); this.props.apiCallBack(this.state.response);})				
+				.then(resp => {
+					
+					var temp = this.state.response.slice();
+					temp.push.apply(temp, resp.result);
+					
+					this.setState({response: temp}); 
+					this.props.apiCallBack(this.state.response);
+					})				
 				.catch(error => console.log('Error', error));
 
 	}

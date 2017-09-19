@@ -35,7 +35,7 @@ class Search extends React.Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		if(this.state.value != '') {
+		if(this.state.value !== '') {
 			
 			this.setState({beerFound: this.checkBeer(), submitted: true});
 

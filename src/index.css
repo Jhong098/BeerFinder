@@ -87,3 +87,7 @@ li {
 .beer-img {
 	width: 150px;
 }
+
+.mdl-card__title-text {
+	align-self: center;
+}
