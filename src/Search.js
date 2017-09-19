@@ -107,7 +107,7 @@ class Search extends React.Component {
 				{this.state.submitted && this.state.beerFound && 
 					<div>
 						<div className="button-center"> <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={this.handleReset}>Reset</button></div>
-						<Beers search={this.state.value} results={this.state.beerResults}/>
+						<Beers search={this.state.value} results={this.state.beerResults} id='0' />
 					</div>
 				}
 

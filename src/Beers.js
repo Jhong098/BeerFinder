@@ -1,29 +1,66 @@
 import React from 'react';
 import Api from './api.js';
+import Slider from './Slider.js';
 
 export default class Beers extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {clickedBeer: null, clicked: false};		
+	}
+
+	componentWillReceiveProps(nextProps) {
+		console.log(nextProps);
+			
+	}
+
+	clickHandler(props) {
+		this.setState({clickedBeer: props, clicked: true});
 		
 	}
+
+	backHandler(props) {
+		this.setState({clickedBeer: null, clicked: false});
+		
+	}
+
+
 
 	render() {
 		return (
 			<div>
-				<BeerGrid beers={this.props.results} />
+				{!this.state.clicked && 
+					<div>
+						<BeerGrid clicked={this.state.clicked} beers={this.props.results} propClickHandler={(id) => this.clickHandler(id)} />
+					</div>
+				}
+
+				{this.state.clicked &&
+
+					<div className="single-beer">
+						<BeerItem clicked={this.state.clicked} item={this.state.clickedBeer} backHandler={(id) => this.backHandler(id)} />
+					</div>
+				}
 			</div>
+			
 			
 			)
 	}
+
+	
+
+	
 }
 
 function BeerGrid (props) {
+
+
 	return (
+		
 		<ul className="beer-list">
 			{props.beers.map(function(beer) {
 				return (
-					<BeerItem key={beer.id} item={beer} />
+					<BeerItem key={beer.id} item={beer} clickHandler={(id) => props.propClickHandler(id)} />
 				)
 			})}
 		</ul>
@@ -51,6 +88,12 @@ function BeerItem (props) {
 						
 					</ul>
 				</div>
+				{!props.clicked &&
+					<div className="button-center"> <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={() => props.clickHandler(props.item)}>Nearest Store</button></div>
+				}
+				{props.clicked &&
+					<div className="button-center"> <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={() => props.backHandler(props.item)}>Back</button></div>
+				}
 		</div>
 	)
 }

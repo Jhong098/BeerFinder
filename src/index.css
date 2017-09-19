@@ -85,3 +85,8 @@ li {
 .h1-center {
 	text-align: center;
 }
+
+.single-beer {
+	display: flex;
+	justify-content: center;
+}
