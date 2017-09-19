@@ -12,7 +12,7 @@ h1 {
 	font-size: 50pt;
 }
 
-.search input {
+.search .input-line {
 	width: 60%;
 	margin: 20px;
 }
@@ -23,26 +23,6 @@ h1 {
 	font-size: 16pt;
 	font-family: 'Indie Flower', cursive;
 	border-radius: 15px;
-}
-
-#type {
-	height: 28px;
-	border-width: 0 0 2px 0;
-	border-color: #110e03;
-
-}
-
-input[type="text"] {
-	font-size: 25pt;
-	font-family: 'Roboto', sans-serif;
-}
-
-#type:focus {
-	outline: none;
-	border-width: 0 0 3px 0;
-	border-color: #db9200;
-	caret-color:#db9200;
-	height: 30px;
 }
 
 .button:hover {
@@ -89,5 +69,19 @@ li {
 }
 
 .mdl-card__title-text {
-	align-self: center;
+	align-self: ;
+}
+
+.mdl-button--raised.mdl-button--colored {
+	text-align: center;
+	margin:  0 auto;
+}
+
+.button-center {
+	margin: 50px;
+	text-align: center;
+}
+
+.h1-center {
+	text-align: center;
 }

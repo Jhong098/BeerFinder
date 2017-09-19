@@ -95,23 +95,26 @@ class Search extends React.Component {
 				{!this.state.submitted && !this.state.beerFound && 
 					<form className="search" onSubmit={this.handleSubmit}>
 						<h1>Search for the Beer:</h1>
-						<input type="text" id="type" value={this.state.value} onChange={this.handleChange} />		
-						<input className='button' type="submit" value="Find" onSubmit={this.handleSubmit}/>
+						<div className="mdl-textfield mdl-js-textfield">
+							<input className="mdl-textfield__input" type="text" id="search" value={this.state.value} onChange={this.handleChange} />	
+							<label className="mdl-textfield__label" for="search">Molson</label>
+						</div>	
+						<input className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored' type="submit" value="Find" onSubmit={this.handleSubmit}/>
 						<Api ref="api" apiCallBack={(newData) => this.onApiChange(newData)}/>
 					</form>
 				}
 
 				{this.state.submitted && this.state.beerFound && 
 					<div>
+						<div className="button-center"> <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={this.handleReset}>Reset</button></div>
 						<Beers search={this.state.value} results={this.state.beerResults}/>
-						<button className="reset" onClick={this.handleReset}>Reset</button>
 					</div>
 				}
 
 				{this.state.submitted && !this.state.beerFound &&
 					<div>
+						<div className="button-center"> <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={this.handleReset}>Reset</button></div>
 						<NotFound search={this.state.value} />
-						<button className="reset" onClick={this.handleReset}>Reset</button>
 					</div>
 				}
 

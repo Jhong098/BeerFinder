@@ -11,8 +11,6 @@ export default class Beers extends React.Component {
 	render() {
 		return (
 			<div>
-				<h2>Search results for {this.props.search}:</h2>
-
 				<BeerGrid beers={this.props.results} />
 			</div>
 			
