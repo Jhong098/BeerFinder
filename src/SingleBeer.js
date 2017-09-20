@@ -2,7 +2,7 @@ import React from 'react';
 import './SingleBeer.css';
 import Location from './Location';
 
-class singleBeer extends React.Component {
+class SingleBeer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -36,11 +36,6 @@ class singleBeer extends React.Component {
   render() {
     return (
       <div>
-        <h3>SingleBeer Component</h3>
-        <h4>Beer ID: {this.state.id}</h4>
-        <p>
-          Your coordinates are lat:{this.state.lat} & long:{this.state.long}
-        </p>
         {this.state.long && (
           <Location
             id={this.state.id}
@@ -53,4 +48,4 @@ class singleBeer extends React.Component {
   }
 }
 
-export default singleBeer;
+export default SingleBeer;

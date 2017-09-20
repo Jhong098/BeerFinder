@@ -7,6 +7,11 @@
   align-items: center;
 }
 
+#map {
+  width: 100vh;
+  height: 50%;
+}
+
 h1 {
   font-family: 'Indie Flower', cursive;
   font-size: 50pt;
@@ -82,4 +87,10 @@ li {
 
 .h1-center {
 	text-align: center;
+}
+
+GoogleMapMarkers, GoogleMapMap {
+	width: 300px;
+	height: 300px;
+
 }

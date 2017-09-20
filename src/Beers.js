@@ -1,6 +1,7 @@
 import React from 'react';
 import Api from './api.js';
 import Slider from './Slider.js';
+import SingleBeer from './SingleBeer.js';
 
 export default class Beers extends React.Component {
 
@@ -37,8 +38,11 @@ export default class Beers extends React.Component {
 
 				{this.state.clicked &&
 
-					<div className="single-beer">
-						<BeerItem clicked={this.state.clicked} item={this.state.clickedBeer} backHandler={(id) => this.backHandler(id)} />
+					<div>
+						<div className="single-beer">
+							<BeerItem clicked={this.state.clicked} item={this.state.clickedBeer} backHandler={(id) => this.backHandler(id)} />
+						</div>
+						<SingleBeer id={this.state.clickedBeer.id} />
 					</div>
 				}
 			</div>
@@ -93,6 +97,7 @@ function BeerItem (props) {
 				}
 				{props.clicked &&
 					<div className="button-center"> <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={() => props.backHandler(props.item)}>Back</button></div>
+					
 				}
 		</div>
 	)

@@ -5,6 +5,7 @@ import Api from './api.js';
 import NotFound from './NotFound.js';
 import Results from './Results.js';
 import Beers from './Beers.js';
+import SingleBeer from './SingleBeer.js';
 
 
 
@@ -118,6 +119,7 @@ class Search extends React.Component {
 					</div>
 				}
 
+				 
 			</div>
 
 			)

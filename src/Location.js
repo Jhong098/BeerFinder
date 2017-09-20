@@ -1,22 +1,5 @@
 import React from 'react';
-import GoogleMapReact from 'google-map-react';
-
-const AnyReactComponent = ({ text }) => (
-  <div
-    style={{
-      width: '15px',
-      height: '15px',
-      borderRadius: '10px',
-      backgroundColor: '#ffffff',
-      border: '1px solid black',
-      color: 'black',
-      fontSize: '10px'
-    }}
-  >
-    <h6>{text}</h6>
-  </div>
-);
-const GoogleAPIKEY = 'AIzaSyDSsgs0O434gy67EsAXuShNXWdJ8yPKero';
+import BeerMap from './Map';
 
 class Location extends React.Component {
   constructor(props) {
@@ -25,15 +8,17 @@ class Location extends React.Component {
     this.state = {
       lat: this.props.lat,
       long: this.props.long,
-      // id: this.props.id
       id: this.props.id, //Molson Bottle
-      store: '',
-      beer: ''
+      stores: [],
+      storeCoords: [],
+      beer: '',
+      finished: false
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getClosestStore(this.state.lat, this.state.long, this.state.id);
+     
   }
 
   getClosestStore(lat, long, id) {
@@ -45,47 +30,47 @@ class Location extends React.Component {
     fetch(url + condition + KEY)
       .then(resp => resp.json())
       .then(resp => {
-        console.log(resp);
-        console.log(resp.result[0]);
+        var storesTemp = [];
+
+        for(var storeCount = 0; storeCount < 5; storeCount++) {         
+          storesTemp.push(resp.result[storeCount]);
+          console.log(storesTemp);
+        }
+
         this.setState({
-          store: resp.result[0],
-          beer: resp.product
+          stores: storesTemp,
+          finished: true
         });
+
+        this.setStoreCoords();
       })
       .catch(error => console.log('Error', error));
   }
 
+  setStoreCoords() {
+
+    var coordsTemp = [];
+
+    for(var i = 0; i < this.state.stores.length; i++) {
+        coordsTemp.push({lat: this.state.stores[i].latitude, lng: this.state.stores[i].longitude});
+        console.log(coordsTemp);
+    }
+
+    this.setState({
+      storeCoords: coordsTemp
+    });
+
+  }
+
   render() {
-    let center = { lat: this.state.lat, lng: this.state.long };
-    console.log(center);
-
-    const style = {
-      width: '300px',
-      height: '300px'
-    };
-
+    console.log("rendering");
     return (
-      <div style={{ width: '100%', height: '400px' }}>
-        Closest Store with that product is : {JSON.stringify(this.state.store)}
-        <br />Coordinates of the store are => lat: {this.state.store.latitude} &
-        long: {this.state.store.longitude}
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyDSsgs0O434gy67EsAXuShNXWdJ8yPKero' }}
-          style={style}
-          center={center}
-          defaultZoom={12}
-        >
-          <AnyReactComponent
-            lat={this.state.lat}
-            lng={this.state.long}
-            text={'your location'}
-          />
-          <AnyReactComponent
-            lat={this.state.store.latitude}
-            lng={this.state.store.longitude}
-            text={'closest store'}
-          />
-        </GoogleMapReact>
+      <div>
+      {this.state.finished &&
+        <div>
+          <BeerMap markers={this.state.storeCoords} />
+        </div>
+      }
       </div>
     );
   }
