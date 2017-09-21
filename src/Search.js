@@ -6,7 +6,7 @@ import NotFound from './NotFound.js';
 import Results from './Results.js';
 import Beers from './Beers.js';
 import SingleBeer from './SingleBeer.js';
-
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
 class Search extends React.Component {
@@ -76,36 +76,49 @@ class Search extends React.Component {
 
 	render() {
 		return (
-			<div >		
+			
+				<div >		
 
-				{!this.state.submitted && !this.state.productFound && 
-					<form className="search" onSubmit={this.handleSubmit}>
-						<h1>Search for the Beer:</h1>
-						<div className="mdl-textfield mdl-js-textfield">
-							<input className="mdl-textfield__input" type="text" id="search" value={this.state.value} onChange={this.handleChange} />	
-							<label className="mdl-textfield__label" for="search">Molson</label>
-						</div>	
-						<input className='mdl-button mdl-js-button mdl-button--raised mdl-button--colored' type="submit" value="Find" onSubmit={this.handleSubmit}/>
-						<Api ref="api" apiCallBack={(newData) => this.onApiChange(newData)}/>
-					</form>
-				}
+					{!this.state.submitted && !this.state.productFound && 
+						<ReactCSSTransitionGroup
+				      		transitionName="fade"
+				      		transitionEnterTimeout={500}
+				      		transitionLeaveTimeout={500}
+				      		transitionAppear={true}
+				      		transitionAppearTimeout={1500}>
+							<form className="search" onSubmit={this.handleSubmit}>
+							
+								<h1 className="main-text">Find Your <code>Beer</code></h1>
+						
+								<div className="mdl-textfield mdl-js-textfield">
+									<input className="mdl-textfield__input" type="text" id="search" value={this.state.value} onChange={this.handleChange} />	
+									<label className="mdl-textfield__label" for="search">Molson</label>
+								</div>	
 
-				{this.state.submitted && this.state.productFound && 
-					<div>
-						<div className="button-center"> <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={this.handleReset}>Reset</button></div>
-						<Beers search={this.state.value} results={this.state.searchResults} id='0' />
-					</div>
-				}
+								<input className='button slide' type="submit" value="Find" onSubmit={this.handleSubmit}/>
 
-				{this.state.submitted && !this.state.productFound &&
-					<div>
-						<div className="button-center"> <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={this.handleReset}>Reset</button></div>
-						<NotFound search={this.state.value} />
-					</div>
-				}
+								<Api ref="api" apiCallBack={(newData) => this.onApiChange(newData)}/>
+							</form>
+						</ReactCSSTransitionGroup>
+					}
 
-				 
-			</div>
+					{this.state.submitted && this.state.productFound && 
+						<div>
+							<div className="button-center"> <button className="button slide" onClick={this.handleReset}>Reset</button></div>
+							<Beers search={this.state.value} results={this.state.searchResults} id='0' />
+						</div>
+					}
+
+					{this.state.submitted && !this.state.productFound &&
+						<div>
+							<div className="button-center"> <button className="button slide" onClick={this.handleReset}>Reset</button></div>
+							<NotFound search={this.state.value} />
+						</div>
+					}
+
+					 
+				</div>
+			
 
 			)
 	}

@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower|Roboto:400,500,700');
 
+body {
+  color: #fff;
+  background: hsl(227, 10%, 10%);
+  font: 400 1.1em 'Firas Sans', sans-serif;
+}
+
+#root {
+  margin: 50px;
+}
+
 .search {
   display: flex;
   flex-direction: column;
@@ -7,14 +17,28 @@
   align-items: center;
 }
 
+.main-text {
+  font: 300 5em 'Firas Sans', sans-serif;
+}
+
+.map {
+  display: inline-block;
+}
+
 #map {
   width: 100vh;
   height: 50%;
 }
 
+
 h1 {
-  font-family: 'Indie Flower', cursive;
   font-size: 50pt;
+}
+
+
+code {
+  color: #e4cb58;
+  font: inherit;
 }
 
 .search .input-line {
@@ -22,16 +46,39 @@ h1 {
   margin: 20px;
 }
 
+.mdl-textfield__input {
+  border-bottom: 1px solid #fff;
+}
+
 .button {
-  background-color: #110e03;
-  color: #ffffff;
-  font-size: 16pt;
-  font-family: 'Indie Flower', cursive;
-  border-radius: 15px;
+  background: none;
+  border: 2px solid;
+  font: inherit;
+  line-height: 1;
+  margin: 0.5em;
+  padding: 1em 2em;
+  color: var(--color);
+  -webkit-transition: 0.25s;
+  transition: 0.25s;
+}
+
+.slide {
+  --color: #e4cb58;
+  --hover: #e4cb58;
+}
+
+.slide:hover,
+.slide:focus {
+  box-shadow: inset 6.5em 0 0 0 var(--hover);
+}
+
+.button:hover, .button:focus {
+  border-color: var(--hover);
+  color: #000;
 }
 
 .button:hover {
-  color: #dddddd;
+  color: #000;
   background-color: #606060;
 }
 
@@ -81,16 +128,67 @@ li {
 }
 
 .button-center {
-  margin: 50px;
+  margin: 20px;
   text-align: center;
+}
+
+.mdl-card__title {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+  text-align: center;
+}
+
+.mdl-card__title h2 {
+  font-size: 13pt;
+  margin: 0 auto;
+}
+
+
+.mdl-card__supporting-text {
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
 }
 
 .h1-center {
 	text-align: center;
 }
 
-GoogleMapMarkers, GoogleMapMap {
-	width: 300px;
-	height: 300px;
-
+.single-beer {
+  width: 50%;
 }
+
+.beer-map {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.fade-enter{
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-out;
+}
+
+.fade-leave{
+  opacity: 1;
+}
+
+.fade-leave-active {
+  opacity: 0;
+  transition: opacity 500ms ease-out;
+}
+
+.fade-appear {
+  opacity: 0;
+}
+
+.fade-appear-active {
+  opacity: 1;
+  transition: opacity 1500ms ease-out;
+}
+
+

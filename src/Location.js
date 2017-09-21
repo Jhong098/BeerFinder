@@ -88,7 +88,7 @@ class Location extends React.Component {
     return (
       <div>
       {this.state.finished &&
-        <div>
+        <div className="map">
           <BeerMap markers={this.state.storeCoords} center={this.state.centerCoords} />
         </div>
       }

@@ -2,6 +2,7 @@ import React from 'react';
 import Api from './api.js';
 import Slider from './Slider.js';
 import SingleBeer from './SingleBeer.js';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export default class Beers extends React.Component {
 
@@ -29,23 +30,37 @@ export default class Beers extends React.Component {
 
 	render() {
 		return (
-			<div>
-				{!this.state.clicked && 
+			<ReactCSSTransitionGroup
+	      		transitionName="fade"
+	      		transitionEnterTimeout={300}
+	      		transitionLeaveTimeout={300}
+	      		transitionAppear={true}
+	      		transitionAppearTimeout={1500}>
 					<div>
-						<BeerGrid clicked={this.state.clicked} beers={this.props.results} propClickHandler={(id) => this.clickHandler(id)} />
-					</div>
-				}
+						{!this.state.clicked && 
+							<div>
+								<BeerGrid clicked={this.state.clicked} beers={this.props.results} propClickHandler={(id) => this.clickHandler(id)} />
+							</div>
+						}
 
-				{this.state.clicked &&
+						{this.state.clicked &&
 
-					<div>
-						<div className="single-beer">
-							<BeerItem clicked={this.state.clicked} item={this.state.clickedBeer} backHandler={(id) => this.backHandler(id)} />
-						</div>
-						<SingleBeer id={this.state.clickedBeer.id} />
+							<ReactCSSTransitionGroup
+					      		transitionName="fade"
+					      		transitionEnterTimeout={300}
+					      		transitionLeaveTimeout={300}
+					      		transitionAppear={true}
+					      		transitionAppearTimeout={1500}>
+									<div className="beer-map">
+										<div className="single-beer">
+											<BeerItem clicked={this.state.clicked} item={this.state.clickedBeer} backHandler={(id) => this.backHandler(id)} />
+										</div>
+										<SingleBeer id={this.state.clickedBeer.id} />
+									</div>
+							</ReactCSSTransitionGroup>
+						}
 					</div>
-				}
-			</div>
+			</ReactCSSTransitionGroup>
 			
 			
 			)
