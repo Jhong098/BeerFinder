@@ -11,6 +11,7 @@ class Location extends React.Component {
       id: this.props.id, //Molson Bottle
       stores: [],
       storeCoords: [],
+      centerCoords: null,
       beer: '',
       finished: false
     };
@@ -34,12 +35,12 @@ class Location extends React.Component {
 
         for(var storeCount = 0; storeCount < 5; storeCount++) {         
           storesTemp.push(resp.result[storeCount]);
-          console.log(storesTemp);
+          
         }
 
         this.setState({
           stores: storesTemp,
-          finished: true
+          
         });
 
         this.setStoreCoords();
@@ -53,22 +54,42 @@ class Location extends React.Component {
 
     for(var i = 0; i < this.state.stores.length; i++) {
         coordsTemp.push({lat: this.state.stores[i].latitude, lng: this.state.stores[i].longitude});
-        console.log(coordsTemp);
+        // console.log(coordsTemp);
     }
 
     this.setState({
-      storeCoords: coordsTemp
+      storeCoords: coordsTemp,
+      
     });
+
+    this.setCenterCoords();
+
+  }
+
+  setCenterCoords() {
+    let totalLat, totalLng, avgLat, avgLng, coordsNum;
+    totalLat = totalLng = avgLat = avgLng = 0;
+    coordsNum = this.state.storeCoords.length;
+
+    for(let i = 0; i < coordsNum; i++) {
+      totalLat += this.state.storeCoords[i].lat;
+      totalLng += this.state.storeCoords[i].lng;
+    }
+
+    avgLat = totalLat / coordsNum;
+    avgLng = totalLng / coordsNum;
+
+    this.setState({finished: true, centerCoords: {lat: avgLat, lng: avgLng}});
 
   }
 
   render() {
-    console.log("rendering");
+    
     return (
       <div>
       {this.state.finished &&
         <div>
-          <BeerMap markers={this.state.storeCoords} />
+          <BeerMap markers={this.state.storeCoords} center={this.state.centerCoords} />
         </div>
       }
       </div>

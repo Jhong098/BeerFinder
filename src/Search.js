@@ -15,12 +15,11 @@ class Search extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			beerFound: false, 
+			productFound: false, 
 			value: '', 
 			submitted: false, 
-			products: [], 
-			beers: [],
-			beerResults: []
+			products: [],
+			searchResults: []
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -38,7 +37,7 @@ class Search extends React.Component {
 		event.preventDefault();
 		if(this.state.value !== '') {
 			
-			this.setState({beerFound: this.checkBeer(), submitted: true});
+			this.setState({productFound: this.checkBeer(), submitted: true});
 
 		}
 		
@@ -47,18 +46,7 @@ class Search extends React.Component {
 	onApiChange(newData) {
 		// console.log(newData);
 		this.setState({products: newData});
-		this.filterProducts();
-	}
-
-	filterProducts() {		
-		let beers = this.state.products.filter(function(product) {
-			if(product.tags.includes('beer')){
-				return product;
-			}
-		});
-
-		this.setState({beers});
-		// console.log(beers);
+		
 	}
 
 	checkBeer() {
@@ -66,34 +54,31 @@ class Search extends React.Component {
 		let found = false;
 		let results = [];
 
-		this.state.beers.map(function(beer) {
-			if(target.length >= 3 && beer.name.toLowerCase().includes(target.toLowerCase())) {
-				results.push(beer);
+		this.state.products.map(function(product) {
+			if(target.length >= 3 && product.name.toLowerCase().includes(target.toLowerCase())) {
+				results.push(product);
 				found = true;
 			} 
 		});
 
-		this.setState({beerResults: results});
+		this.setState({searchResults: results});
 
-		if(this.state.submitted && !this.state.beerFound) {
-			// console.log('not found');
+		if(this.state.submitted && !this.state.productFound) {			
 			found = false;
 		}
-
-		// console.log(found);
 
 		return found;
 	}
 
 	handleReset() {
-		this.setState({submitted: false, beerFound: false, value: ''});
+		this.setState({submitted: false, productFound: false, value: ''});
 	}
 
 	render() {
 		return (
 			<div >		
 
-				{!this.state.submitted && !this.state.beerFound && 
+				{!this.state.submitted && !this.state.productFound && 
 					<form className="search" onSubmit={this.handleSubmit}>
 						<h1>Search for the Beer:</h1>
 						<div className="mdl-textfield mdl-js-textfield">
@@ -105,14 +90,14 @@ class Search extends React.Component {
 					</form>
 				}
 
-				{this.state.submitted && this.state.beerFound && 
+				{this.state.submitted && this.state.productFound && 
 					<div>
 						<div className="button-center"> <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={this.handleReset}>Reset</button></div>
-						<Beers search={this.state.value} results={this.state.beerResults} id='0' />
+						<Beers search={this.state.value} results={this.state.searchResults} id='0' />
 					</div>
 				}
 
-				{this.state.submitted && !this.state.beerFound &&
+				{this.state.submitted && !this.state.productFound &&
 					<div>
 						<div className="button-center"> <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" onClick={this.handleReset}>Reset</button></div>
 						<NotFound search={this.state.value} />

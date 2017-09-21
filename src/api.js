@@ -9,7 +9,7 @@ export default class Api extends React.Component {
   }
 
   componentWillMount() {
-    for (var i = 1; i <= 2; i++) {
+    for (var i = 1; i <= 3; i++) {
       this.getResponse(i);
     }
   }
@@ -21,7 +21,7 @@ export default class Api extends React.Component {
 
     fetch(
       url +
-        'products?page=' +
+        'products?q=beer&page=' +
         page +
         '&per_page=100&where_not=is_dead&access_key=' +
         KEY
