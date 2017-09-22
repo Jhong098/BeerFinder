@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower|Roboto:400,500,700');
+@import '../node_modules/loaders.css/src/animations/line-scale.scss'
 
 body {
   color: #fff;
@@ -69,7 +70,7 @@ code {
 
 .slide:hover,
 .slide:focus {
-  box-shadow: inset 6.5em 0 0 0 var(--hover);
+  box-shadow: inset 7em 0 0 0 var(--hover);
 }
 
 .button:hover, .button:focus {
@@ -191,4 +192,10 @@ li {
   transition: opacity 1500ms ease-out;
 }
 
+.loader-hidden {
+  display: none;
+}
+.loader-active {
+  display: block;
+}
 

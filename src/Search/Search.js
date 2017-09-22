@@ -1,11 +1,10 @@
 import React from 'react';
 // import { Router, Link, Route, Switch } from 'react-router-dom';
-import Api from './api.js';
+import Api from '../utils/api.js';
 
 import NotFound from './NotFound.js';
-import Results from './Results.js';
-import Beers from './Beers.js';
-import SingleBeer from './SingleBeer.js';
+import Beers from '../Results/Beers.js';
+import Locator from './Locator.js';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
@@ -92,7 +91,7 @@ class Search extends React.Component {
 						
 								<div className="mdl-textfield mdl-js-textfield">
 									<input className="mdl-textfield__input" type="text" id="search" value={this.state.value} onChange={this.handleChange} />	
-									<label className="mdl-textfield__label" for="search">Molson</label>
+									<label className="mdl-textfield__label" htmlFor="search">Molson</label>
 								</div>	
 
 								<input className='button slide' type="submit" value="Find" onSubmit={this.handleSubmit}/>

@@ -1,23 +1,27 @@
 import React from 'react';
-import './SingleBeer.css';
-import Location from './Location';
+import StoreLocator from './StoreLocator';
 
-class SingleBeer extends React.Component {
+class Locator extends React.Component {
+
   constructor(props) {
     super(props);
-
     this.state = {
       lat: '',
       long: '',
-      id: this.props.id
+      id: this.props.id,
+      mapRendered: false
       //id: 493965 //Molson Bottle
     };
   }
 
   componentDidMount() {
-    // let location = getLocation();
-    // console.log(location);
     this.getLocation();
+  }
+
+  handleRender = (rendered) => {
+    console.log(rendered);
+    this.setState({mapRendered: rendered});
+    this.props.renderHandler(rendered);
   }
 
   getLocation() {
@@ -37,10 +41,11 @@ class SingleBeer extends React.Component {
     return (
       <div>
         {this.state.long && (
-          <Location
+          <StoreLocator
             id={this.state.id}
             lat={this.state.lat}
             long={this.state.long}
+            mapRendered={this.handleRender}
           />
         )}
       </div>
@@ -48,4 +53,4 @@ class SingleBeer extends React.Component {
   }
 }
 
-export default SingleBeer;
+export default Locator;

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Search from './Search';
-import { MapWithControlledZoom } from './Map';
-import SingleBeer from './SingleBeer';
+import Search from './Search/Search';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export default class App extends React.Component {

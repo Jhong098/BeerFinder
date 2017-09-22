@@ -31,6 +31,7 @@ export default class BeerMap extends React.Component {
 			var marker = new google.maps.Marker({
           	position: oneMarker,
           	map: map
+          	// title: 'LCBO'
         	});
 			markerArray.push(marker);
 
@@ -43,7 +44,23 @@ export default class BeerMap extends React.Component {
 			 bounds.extend(markerArray[i].getPosition());
 			}
 
-			map.fitBounds(bounds);
+		map.fitBounds(bounds);
+
+		// var contentString = ;
+
+		//   var infowindow = new google.maps.InfoWindow({
+		//     content: contentString
+		//   });
+
+		//   var marker = new google.maps.Marker({
+		//     position: uluru,
+		//     map: map,
+		//     title: 'Uluru (Ayers Rock)'
+		//   });
+		//   marker.addListener('click', function() {
+		//     infowindow.open(map, marker);
+		//   });
+
 	        
 		}
 

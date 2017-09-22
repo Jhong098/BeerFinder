@@ -1,7 +1,7 @@
 import React from 'react';
-import BeerMap from './Map';
+import BeerMap from '../utils/Map';
 
-class Location extends React.Component {
+class StoreLocator extends React.Component {
   constructor(props) {
     super(props);
 
@@ -80,6 +80,7 @@ class Location extends React.Component {
     avgLng = totalLng / coordsNum;
 
     this.setState({finished: true, centerCoords: {lat: avgLat, lng: avgLng}});
+    this.props.mapRendered(true);
 
   }
 
@@ -97,4 +98,4 @@ class Location extends React.Component {
   }
 }
 
-export default Location;
+export default StoreLocator;

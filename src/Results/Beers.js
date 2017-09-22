@@ -1,14 +1,15 @@
 import React from 'react';
-import Api from './api.js';
-import Slider from './Slider.js';
-import SingleBeer from './SingleBeer.js';
+import Api from '../utils/api.js';
+import Slider from '../utils/Slider.js';
+import Locator from '../Search/Locator.js';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import Loader from 'react-loaders';
 
 export default class Beers extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {clickedBeer: null, clicked: false};		
+		this.state = {clickedBeer: null, clicked: false, mapRendered: false};		
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -26,9 +27,17 @@ export default class Beers extends React.Component {
 		
 	}
 
+	renderHandler = (rendered) => {
+		this.setState({mapRendered: rendered});
+		console.log(rendered);
+	}
+
 
 
 	render() {
+
+		console.log(this.state.mapRendered);
+
 		return (
 			<ReactCSSTransitionGroup
 	      		transitionName="fade"
@@ -43,22 +52,25 @@ export default class Beers extends React.Component {
 							</div>
 						}
 
-						{this.state.clicked &&
+						<ReactCSSTransitionGroup
+				      		transitionName="fade"
+				      		transitionEnterTimeout={300}
+				      		transitionLeaveTimeout={300}
+				      		transitionAppear={true}
+				      		transitionAppearTimeout={1500}>
 
-							<ReactCSSTransitionGroup
-					      		transitionName="fade"
-					      		transitionEnterTimeout={300}
-					      		transitionLeaveTimeout={300}
-					      		transitionAppear={true}
-					      		transitionAppearTimeout={1500}>
-									<div className="beer-map">
-										<div className="single-beer">
-											<BeerItem clicked={this.state.clicked} item={this.state.clickedBeer} backHandler={(id) => this.backHandler(id)} />
-										</div>
-										<SingleBeer id={this.state.clickedBeer.id} />
+							{ this.state.clicked &&						
+								<div className="beer-map">
+									<Loader type="line-scale" active />
+									<div className="single-beer">
+										{ this.state.mapRendered &&
+										<BeerItem className="fixed" clicked={this.state.clicked} item={this.state.clickedBeer} backHandler={(id) => this.backHandler(id)} />
+										}
 									</div>
-							</ReactCSSTransitionGroup>
-						}
+									<Locator id={this.state.clickedBeer.id} renderHandler={this.renderHandler}/>
+								</div>
+							}
+						</ReactCSSTransitionGroup>
 					</div>
 			</ReactCSSTransitionGroup>
 			
@@ -117,8 +129,3 @@ function BeerItem (props) {
 		</div>
 	)
 }
-
-
-
-// <img className="beer-img" src={props.item.image_url} alt={'picture for ' + props.item.name} /></li>
-// <img className="beer-img" src="./assets/beer-default.jpg" alt={'picture for ' + props.item.name} />
