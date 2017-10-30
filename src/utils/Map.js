@@ -6,8 +6,7 @@ export default class BeerMap extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
-			center: null,
-			BeerMarkers: []
+			center: null
 		 };
 		
 	}
@@ -15,52 +14,51 @@ export default class BeerMap extends React.Component {
 	componentDidMount() {		
 		const google = window.google;
 		var map = window.map;
-		let markers = this.props.markers.slice();
-		console.log(markers);
+		let markerArray = [];
 		// var center = {lat: this.state.center_lat, lng: this.state.center_long};
 		// var marker = {lat: this.state.marker_lat, lng: this.state.marker_long};
 
 		map = new google.maps.Map(this.refs.map, {
           center: this.props.center,
           zoom: 13
-        });
+    			});
 
-		var markerArray = [];
+		this.props.stores.forEach((store) => {
+			var contentString = `
+				<div class="map-info-container">
+					<div class="map-info-title">
+						<p>${store.name}</p>
+					</div>
+					<div class="map-info-body">
+						<ul class="map-info-list">
+							<li>Address: ${store.address_line_1}</li>
+							<li>Telephone: ${store.telephone}</li>
+						</ul>
+					</div>
+				</div>`;
 
-		markers.forEach(function(oneMarker) {
+		  var infowindow = new google.maps.InfoWindow({
+		    content: contentString
+		  });
+
 			var marker = new google.maps.Marker({
-          	position: oneMarker,
+          	position: {lat: store.latitude, lng: store.longitude},
           	map: map
           	// title: 'LCBO'
-        	});
+      });
 			markerArray.push(marker);
 
+		  marker.addListener('click', function() {
+		    infowindow.open(map, marker);
+		  });
 		});
-
-		console.log(markerArray);
 
 		var bounds = new google.maps.LatLngBounds();
 			for (var i = 0; i < markerArray.length; i++) {
 			 bounds.extend(markerArray[i].getPosition());
-			}
+		}
 
 		map.fitBounds(bounds);
-
-		// var contentString = ;
-
-		//   var infowindow = new google.maps.InfoWindow({
-		//     content: contentString
-		//   });
-
-		//   var marker = new google.maps.Marker({
-		//     position: uluru,
-		//     map: map,
-		//     title: 'Uluru (Ayers Rock)'
-		//   });
-		//   marker.addListener('click', function() {
-		//     infowindow.open(map, marker);
-		//   });
-
 	        
 		}
 

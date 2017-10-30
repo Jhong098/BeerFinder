@@ -23,7 +23,7 @@ export default class Beers extends React.Component {
 	}
 
 	backHandler(props) {
-		this.setState({clickedBeer: null, clicked: false});
+		this.setState({clickedBeer: null, clicked: false, mapRendered: false});
 		
 	}
 
@@ -61,13 +61,15 @@ export default class Beers extends React.Component {
 
 							{ this.state.clicked &&						
 								<div className="beer-map">
-									<Loader type="line-scale" active />
+									
 									<div className="single-beer">
 										{ this.state.mapRendered &&
 										<BeerItem className="fixed" clicked={this.state.clicked} item={this.state.clickedBeer} backHandler={(id) => this.backHandler(id)} />
 										}
 									</div>
-									<Locator id={this.state.clickedBeer.id} renderHandler={this.renderHandler}/>
+									<div className="map-right">
+										<Locator id={this.state.clickedBeer.id} renderHandler={this.renderHandler}/>
+									</div>
 								</div>
 							}
 						</ReactCSSTransitionGroup>

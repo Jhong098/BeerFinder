@@ -1,10 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower|Roboto:400,500,700');
-@import '../node_modules/loaders.css/src/animations/line-scale.scss'
+/* @import '~loaders.css/src/animations/line-scale.scss' */
 
 body {
   color: #fff;
   background: hsl(227, 10%, 10%);
   font: 400 1.1em 'Firas Sans', sans-serif;
+  min-width: 850px;
 }
 
 #root {
@@ -100,6 +101,8 @@ li {
   list-style-type: none;
 }
 
+
+
 .beer-list {
   display: flex;
   flex-wrap: wrap;
@@ -165,6 +168,27 @@ li {
   align-items: center;
 }
 
+@media (max-width: 1200px) {
+  .single-beer {
+    display: flex;
+    justify-content: center;
+  }
+
+  .map-right {
+    margin: 40px;
+    display: flex;
+    justify-content: center;
+  }
+  
+}
+@media (max-width: 1000px) {
+  
+  .beer-map {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .fade-enter{
   opacity: 0;
 }
@@ -199,3 +223,14 @@ li {
   display: block;
 }
 
+.map-info-container {
+  color: #000;
+}
+
+.map-info-title p {
+  font-size: 13pt;
+}
+
+.map-info-body ul>li {
+  font-size: 9pt;
+}

@@ -90,7 +90,7 @@ class StoreLocator extends React.Component {
       <div>
       {this.state.finished &&
         <div className="map">
-          <BeerMap markers={this.state.storeCoords} center={this.state.centerCoords} />
+          <BeerMap markers={this.state.storeCoords} center={this.state.centerCoords} stores={this.state.stores} />
         </div>
       }
       </div>
