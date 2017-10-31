@@ -20,27 +20,17 @@ class Search extends React.Component {
 			products: [],
 			searchResults: []
 		};
-
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleReset = this.handleReset.bind(this);
-
 	}
 
-	handleChange(event) {
+	handleChange = (event) => {
 		this.setState({value : event.target.value});
-	}
+	};
 
 
-	handleSubmit(event) {
-		event.preventDefault();
-		if(this.state.value !== '') {
-			
-			this.setState({productFound: this.checkBeer(), submitted: true});
-
-		}
-		
-	}
+	handleSubmit = (event) => {
+		event.preventDefault();			
+		this.setState({productFound: this.checkBeer(), submitted: true});		
+	};
 
 	onApiChange(newData) {
 		// console.log(newData);
@@ -69,9 +59,9 @@ class Search extends React.Component {
 		return found;
 	}
 
-	handleReset() {
+	handleReset = () => {
 		this.setState({submitted: false, productFound: false, value: ''});
-	}
+	};
 
 	render() {
 		return (
