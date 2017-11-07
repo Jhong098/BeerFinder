@@ -34,7 +34,7 @@ class Search extends React.Component {
 
 	onApiChange(newData) {
 		// console.log(newData);
-		this.setState({products: newData});
+		this.setState({products: newData.data});
 		
 	}
 
